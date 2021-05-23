@@ -3,6 +3,8 @@ const BoughtModel = require('./models/BoughtModel');
 const UserModel = require('./models/UserModel');
 const CourseModel = require('./models/CourseModel');
 const TeachersModel = require('./models/TeachersModel');
+const CategoryModel = require('./models/CategoryModel');
+const LessonsModel = require('./models/LessonsModel')
 
 const sequelize = new Sequelize('postgres://postgres:password@localhost:5432/test_model', {
 logging: log => console.log(`SQL: ${log}`)
@@ -19,6 +21,8 @@ async function main() {
         db.boughts = await BoughtModel(Sequelize, sequelize)
         db.courses = await CourseModel(Sequelize, sequelize)
         db.teachers = await TeachersModel(Sequelize, sequelize)
+        db.categories = await CategoryModel(Sequelize, sequelize)
+        db.lessons = await LessonsModel(Sequelize, sequelize)
 
         // Referenses
 
@@ -52,13 +56,43 @@ async function main() {
 
         db.teachers.hasMany(db.courses, {
             foreign_key: {
-                name: 'course_id'
+                name: 'course_id',
+                allowNull: false
             }
         })
 
-        db.courses.hasMany(db.teachers, {
+        db.courses.belongsTo(db.teachers, {
             foreign_key: {
-                name: 'teacher_id'
+                name: 'teacher_id',
+                allowNull: false
+            }
+        })
+
+        db.categories.hasMany(db.courses, {
+            foreign_key: {
+                name: 'course_id',
+                allowNull: false
+            }
+        })
+
+        db.courses.belongsTo(db.categories, {
+            foreign_key: {
+                name: 'category_id',
+                allowNull: false
+            }
+        })
+
+        db.courses.hasMany(db.lessons, {
+            foreign_key: {
+                name: 'lesson_id',
+                allowNull: false
+            }
+        })
+
+        db.lessons.belongsTo(db.courses, {
+            foreign_key: {
+                name: 'course_id',
+                allowNull: false
             }
         })
 
