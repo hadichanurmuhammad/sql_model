@@ -10,7 +10,7 @@ module.exports = async (Sequelize, sequelize) => {
                 allowNull: false
             },
             video: {
-                type: Sequelize.DataTypes.MP4,
+                type: Sequelize.DataTypes.STRING,
                 allowNull: false
             }
         })
