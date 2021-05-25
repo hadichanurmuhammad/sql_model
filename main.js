@@ -28,7 +28,7 @@ async function main() {
 
         db.users.hasMany(db.boughts, {
             foreign_key: {
-                name: 'bought_id',
+                name: 'user_id',
                 allowNull: false
             }
         })
@@ -42,7 +42,7 @@ async function main() {
 
         db.boughts.hasMany(db.courses, {
             foreign_key: {
-                name: 'course_id',
+                name: 'bought_id',
                 allowNull: false
             }
         })
@@ -56,7 +56,7 @@ async function main() {
 
         db.teachers.hasMany(db.courses, {
             foreign_key: {
-                name: 'course_id',
+                name: 'teacher_id',
                 allowNull: false
             }
         })
@@ -70,7 +70,7 @@ async function main() {
 
         db.categories.hasMany(db.courses, {
             foreign_key: {
-                name: 'course_id',
+                name: 'category_id',
                 allowNull: false
             }
         })
@@ -84,7 +84,7 @@ async function main() {
 
         db.courses.hasMany(db.lessons, {
             foreign_key: {
-                name: 'lesson_id',
+                name: 'course_id',
                 allowNull: false
             }
         })
